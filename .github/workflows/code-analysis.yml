@@ -1,0 +1,48 @@
+name: AI Code Analysis
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Run AI Code Analyzer
+      run: |
+        echo "Running AI Code Analysis..."
+        python ai_code_analyzer.py . --severity medium --format json > analysis-results.json
+        
+        # Also generate human-readable report
+        python ai_code_analyzer.py . --severity medium > analysis-report.txt
+        
+        echo "Analysis complete!"
+        
+        # Show summary
+        echo "=== Analysis Summary ==="
+        cat analysis-report.txt
+    
+    - name: Upload Analysis Results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: code-analysis-results
+        path: |
+          analysis-results.json
+          analysis-report.txt
+    
+    - name: Check for Critical Issues
+      run: |
+        # Fail the workflow if critical or high severity issues are found
+        python ai_code_analyzer.py . --severity high
+        echo "✅ No critical or high severity issues found!"

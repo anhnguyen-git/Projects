@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# AI Code Analyzer - Convenient wrapper script
+# Usage: ./analyze [path] [options]
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ANALYZER="$SCRIPT_DIR/ai_code_analyzer.py"
+
+# Default to current directory if no path provided
+TARGET_PATH="${1:-.}"
+
+# Shift to get remaining arguments
+shift
+
+# Run the analyzer
+python3 "$ANALYZER" "$TARGET_PATH" "$@"
