@@ -1,0 +1,60 @@
+{
+  "analysis_rules": {
+    "python": {
+      "enabled": true,
+      "rules": {
+        "syntax_errors": {"enabled": true, "severity": "critical"},
+        "missing_imports": {"enabled": true, "severity": "high"},
+        "print_statements": {"enabled": true, "severity": "low"},
+        "long_lines": {"enabled": true, "severity": "low", "max_length": 88},
+        "todo_comments": {"enabled": true, "severity": "medium"}
+      }
+    },
+    "javascript": {
+      "enabled": true,
+      "rules": {
+        "console_log": {"enabled": true, "severity": "low"},
+        "var_declarations": {"enabled": true, "severity": "medium"},
+        "loose_equality": {"enabled": true, "severity": "medium"}
+      }
+    },
+    "typescript": {
+      "enabled": true,
+      "rules": {
+        "any_type": {"enabled": true, "severity": "medium"}
+      }
+    },
+    "java": {
+      "enabled": true,
+      "rules": {
+        "system_out": {"enabled": true, "severity": "low"}
+      }
+    },
+    "c_cpp": {
+      "enabled": true,
+      "rules": {
+        "missing_includes": {"enabled": true, "severity": "high"}
+      }
+    }
+  },
+  "output": {
+    "default_format": "text",
+    "show_code_snippets": true,
+    "group_by_severity": true
+  },
+  "files": {
+    "ignore_patterns": [
+      "node_modules/*",
+      ".git/*",
+      "*.min.js",
+      "*.min.css",
+      "__pycache__/*",
+      "*.pyc",
+      ".pytest_cache/*",
+      "coverage/*",
+      "dist/*",
+      "build/*"
+    ],
+    "max_file_size_mb": 10
+  }
+}
