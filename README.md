@@ -36,6 +36,15 @@ python ai_code_analyzer.py examples/ --format json
 
 # Filter by severity level
 python ai_code_analyzer.py examples/ --severity high
+
+# Use the convenient wrapper script
+./analyze examples/
+
+# Get project health overview
+python project_health.py examples/
+
+# Run the interactive demo
+python demo.py
 ```
 
 ### Installation
@@ -47,8 +56,8 @@ No external dependencies required! The analyzer uses Python's standard library.
 git clone <repository-url>
 cd Projects
 
-# Make the analyzer executable (optional)
-chmod +x ai_code_analyzer.py
+# Make scripts executable (optional)
+chmod +x ai_code_analyzer.py analyze project_health.py demo.py
 
 # Run analysis
 python ai_code_analyzer.py <path-to-analyze>
@@ -169,6 +178,46 @@ The `examples/` directory contains sample code files demonstrating various issue
 - `problematic_python.py` - Python file with multiple issues
 - `problematic_javascript.js` - JavaScript file with common problems
 - `good_python.py` - Well-written Python code with minimal issues
+
+## Additional Tools
+
+### Project Health Dashboard
+Get an overview of your project's code quality:
+```bash
+python project_health.py examples/
+```
+
+Output:
+```
+📊 PROJECT HEALTH DASHBOARD
+==================================================
+
+🟡 Overall Health Score: 79.5/100
+
+📈 Summary:
+   Total Problems: 20
+   Files Analyzed: 2
+   Files with Problems: 2
+
+🚨 Issues by Severity:
+   🚨 Critical: 1
+   🔴 High: 1
+   🟡 Medium: 8
+   🔵 Low: 10
+
+💡 Recommendations:
+   🎯 Priority: Fix critical and high severity issues first
+   🔧 Fix syntax errors to ensure code can run
+```
+
+### Interactive Demo
+Run the comprehensive demo to see all features:
+```bash
+python demo.py
+```
+
+### CI/CD Integration
+The repository includes a GitHub Actions workflow (`.github/workflows/code-analysis.yml`) that automatically runs code analysis on push and pull requests.
 
 ## Contributing
 

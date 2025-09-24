@@ -37,7 +37,8 @@ class CodeProblem:
 class AICodeAnalyzer:
     """Main analyzer class that detects problems and suggests solutions"""
     
-    def __init__(self):
+    def __init__(self, config_path: str = None):
+        self.config = self._load_config(config_path)
         self.supported_extensions = {
             '.py': self._analyze_python,
             '.js': self._analyze_javascript,
@@ -52,6 +53,34 @@ class AICodeAnalyzer:
             '.cs': self._analyze_csharp,
             '.swift': self._analyze_swift,
             '.kt': self._analyze_kotlin
+        }
+    
+    def _load_config(self, config_path: str = None) -> dict:
+        """Load configuration from JSON file"""
+        if config_path is None:
+            config_path = os.path.join(os.path.dirname(__file__), 'analyzer_config.json')
+        
+        try:
+            if os.path.exists(config_path):
+                with open(config_path, 'r') as f:
+                    return json.load(f)
+        except Exception:
+            pass  # Fall back to default config
+        
+        # Default configuration
+        return {
+            "analysis_rules": {
+                "python": {"enabled": True},
+                "javascript": {"enabled": True},
+                "typescript": {"enabled": True},
+                "java": {"enabled": True},
+                "c_cpp": {"enabled": True}
+            },
+            "output": {
+                "default_format": "text",
+                "show_code_snippets": True,
+                "group_by_severity": True
+            }
         }
     
     def analyze_directory(self, directory_path: str) -> List[CodeProblem]:
